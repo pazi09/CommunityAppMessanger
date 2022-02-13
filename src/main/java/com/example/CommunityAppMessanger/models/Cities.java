@@ -22,7 +22,7 @@ public class Cities {
     @Column(name = "city")
     private String city;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany
     @JoinTable(	name = "cities_flats",
             joinColumns = @JoinColumn(name = "city_id"),
             inverseJoinColumns = @JoinColumn(name = "house_id"))

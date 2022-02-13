@@ -27,7 +27,7 @@ public class Houses {
     @Size(max = 1000)
     private Long cityId;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany
     @JoinTable(	name = "houses_flats",
             joinColumns = @JoinColumn(name = "house_id"),
             inverseJoinColumns = @JoinColumn(name = "flat_id"))

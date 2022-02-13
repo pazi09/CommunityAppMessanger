@@ -20,11 +20,9 @@ public class Tenants {
     @Column
     private String tenantName;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(	name = "tenants_users",
-            joinColumns = @JoinColumn(name = "tenant_id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id"))
-    private Set<User> users=new HashSet<>();
+    @OneToOne
+    @JoinColumn(name = "user_id" ,unique = true)
+    public User user;
 
     public Tenants(){};
 }
