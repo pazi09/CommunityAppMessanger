@@ -20,9 +20,24 @@ public class Tenants {
     @Column
     private String tenantName;
 
+    @Column
+    private String tenantSecondName;
+
+    @Column
+    private String tenantLastName;
+
     @OneToOne
     @JoinColumn(name = "user_id" ,unique = true)
     public User user;
 
-    public Tenants(){};
+    public Tenants() {
+    }
+
+    public Tenants(String tenantName, String tenantSecondName, String tenantLastName) {
+        this.tenantName=tenantName;
+        this.tenantSecondName=tenantSecondName;
+        this.tenantLastName=tenantLastName;
+    }
+
+
 }
