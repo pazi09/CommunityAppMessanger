@@ -2,6 +2,7 @@ package com.example.CommunityAppMessanger.serviceInterface;
 
 import com.example.CommunityAppMessanger.models.Tenants;
 
+import com.example.CommunityAppMessanger.models.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 

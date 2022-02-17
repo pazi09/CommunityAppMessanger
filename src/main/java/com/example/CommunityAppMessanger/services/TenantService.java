@@ -30,7 +30,7 @@ public class TenantService implements TenantServiceInterface {
     public ResponseEntity<Tenants> saveTenant(Tenants tenant) {
         try {
            Tenants newTenant= tenantRepository.
-                   save(new Tenants(tenant.getTenantName(),tenant.getTenantSecondName(),tenant.getTenantLastName()));
+                   save(new Tenants(tenant.getTenantName(),tenant.getTenantSecondName(),tenant.getTenantLastName(),tenant.getUser()));
            return new ResponseEntity<>(newTenant, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);

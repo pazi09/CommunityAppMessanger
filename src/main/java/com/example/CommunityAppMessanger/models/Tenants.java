@@ -33,10 +33,11 @@ public class Tenants {
     public Tenants() {
     }
 
-    public Tenants(String tenantName, String tenantSecondName, String tenantLastName) {
+    public Tenants(String tenantName, String tenantSecondName, String tenantLastName,User user) {
         this.tenantName=tenantName;
         this.tenantSecondName=tenantSecondName;
         this.tenantLastName=tenantLastName;
+        this.user=user;
     }
 
 

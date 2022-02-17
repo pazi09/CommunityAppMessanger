@@ -47,6 +47,7 @@ public class AuthController {
         this.userRepository=userRepository;
         this.encoder=encoder;
         this.jwtUtils=jwtUtils;
+        this.roleRepository=roleRepository;
     }
 
     @PostMapping("/signin")
