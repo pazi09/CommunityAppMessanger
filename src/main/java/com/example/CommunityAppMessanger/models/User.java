@@ -35,6 +35,14 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinTable(name = "user_tenant",
+            joinColumns =
+                    { @JoinColumn(name = "user_id", referencedColumnName = "id") },
+            inverseJoinColumns =
+                    { @JoinColumn(name = "tenant_id", referencedColumnName = "id") })
+    private Tenants tenants;
+
     public User() {
     }
 

@@ -3,6 +3,7 @@ package com.example.CommunityAppMessanger.models;
 import lombok.Data;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlType;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -26,18 +27,16 @@ public class Tenants {
     @Column
     private String tenantLastName;
 
-    @OneToOne
-    @JoinColumn(name = "user_id" ,unique = true)
+    @OneToOne(mappedBy = "tenants")
     public User user;
 
     public Tenants() {
     }
 
-    public Tenants(String tenantName, String tenantSecondName, String tenantLastName,User user) {
+    public Tenants(String tenantName, String tenantSecondName, String tenantLastName) {
         this.tenantName=tenantName;
         this.tenantSecondName=tenantSecondName;
         this.tenantLastName=tenantLastName;
-        this.user=user;
     }
 
 
