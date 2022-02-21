@@ -15,7 +15,8 @@ import java.util.Set;
         })
 public class Tenants {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name="id")
     private Long id;
 
     @Column
@@ -27,16 +28,17 @@ public class Tenants {
     @Column
     private String tenantLastName;
 
-    @OneToOne(mappedBy = "tenants")
-    public User user;
+    @Column(name="user_id",unique = true)
+    private Long user_id;
 
     public Tenants() {
     }
 
-    public Tenants(String tenantName, String tenantSecondName, String tenantLastName) {
+    public Tenants(String tenantName, String tenantSecondName, String tenantLastName,Long user_id) {
         this.tenantName=tenantName;
         this.tenantSecondName=tenantSecondName;
         this.tenantLastName=tenantLastName;
+        this.user_id=user_id;
     }
 
 

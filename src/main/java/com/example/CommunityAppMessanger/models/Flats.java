@@ -3,9 +3,9 @@ package com.example.CommunityAppMessanger.models;
 import lombok.Data;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -22,12 +22,25 @@ public class Flats {
         @Column
         private Long flatNumber;
 
+        @Column
+        private Float square;
+
+        @Column
+        private Long rooms;
+
         @ManyToMany(fetch = FetchType.LAZY)
         @JoinTable(	name = "flats_tenants",
                 joinColumns = @JoinColumn(name = "flat_id"),
                 inverseJoinColumns = @JoinColumn(name = "tenant_id"))
         private Set<Tenants> tenants=new HashSet<>();
 
+
         public Flats(){
+        }
+
+        public Flats( Long flatNumber, Long rooms, Float square) {
+                this.flatNumber=flatNumber;
+                this.square=square;
+                this.rooms=rooms;
         }
 }

@@ -23,7 +23,7 @@ public class Cities {
     private String city;
 
     @ManyToMany
-    @JoinTable(	name = "cities_flats",
+    @JoinTable(	name = "cities_houses",
             joinColumns = @JoinColumn(name = "city_id"),
             inverseJoinColumns = @JoinColumn(name = "house_id"))
     private Set<Houses> houses=new HashSet<>();
