@@ -3,8 +3,6 @@ package com.example.CommunityAppMessanger.models;
 import lombok.Data;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -29,5 +27,9 @@ public class Cities {
     private Set<Houses> houses=new HashSet<>();
 
     public Cities() {
+    }
+
+    public Cities(String city){
+        this.city=city;
     }
 }

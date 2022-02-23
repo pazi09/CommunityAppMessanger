@@ -4,15 +4,14 @@ import lombok.Data;
 
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlType;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Data
 @Entity
-@Table( name = "tenant",
-        uniqueConstraints = {
-                @UniqueConstraint(columnNames = "tenantName")
-        })
+@Table( name = "tenant")
 public class Tenants {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

@@ -10,14 +10,14 @@ import java.util.Set;
 
 @Data
 @Entity
-@Table( name = "flat",
-        uniqueConstraints = {
-                @UniqueConstraint(columnNames = "flatNumber")
-        })
+@Table( name = "flat")
 public class Flats {
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         private Long id;
+
+        @Column(name = "house_id", insertable=false, updatable = false)
+        private Long house_id;
 
         @Column
         private Long flatNumber;
@@ -28,12 +28,15 @@ public class Flats {
         @Column
         private Long rooms;
 
-        @ManyToMany(fetch = FetchType.LAZY)
+        @ManyToMany(fetch = FetchType.EAGER)
         @JoinTable(	name = "flats_tenants",
                 joinColumns = @JoinColumn(name = "flat_id"),
                 inverseJoinColumns = @JoinColumn(name = "tenant_id"))
-        private Set<Tenants> tenants=new HashSet<>();
+        private Set<Tenants> flat=new HashSet<>();
 
+        @ManyToOne(fetch = FetchType.EAGER, optional = false,cascade = CascadeType.ALL)
+        @JoinColumn(name = "house_id")
+        private Houses house;
 
         public Flats(){
         }

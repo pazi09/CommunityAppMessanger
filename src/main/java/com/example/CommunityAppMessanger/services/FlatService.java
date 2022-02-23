@@ -26,9 +26,7 @@ public class FlatService implements FlatServiceInterface {
     @Override
     public ResponseEntity<Flats> saveFlat(Flats flats) {
         try {
-            Flats newFlat=new Flats(flats.getFlatNumber(),flats.getRooms(),flats.getSquare());
-            newFlat.setTenants(flats.getTenants());
-            flatRepository.save(newFlat);
+            Flats newFlat=flatRepository.save(new Flats(flats.getFlatNumber(),flats.getRooms(),flats.getSquare()));
             return new ResponseEntity<>(newFlat, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
