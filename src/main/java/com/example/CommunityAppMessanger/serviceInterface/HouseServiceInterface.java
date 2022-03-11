@@ -1,6 +1,5 @@
 package com.example.CommunityAppMessanger.serviceInterface;
 
-import com.example.CommunityAppMessanger.models.Flats;
 import com.example.CommunityAppMessanger.models.Houses;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,4 +16,6 @@ public interface HouseServiceInterface {
     ResponseEntity<HttpStatus> deleteById(Long id);
 
     ResponseEntity<Houses> updateHouse(Long id, Houses houses);
+
+    Houses getHouse(String address);
 }

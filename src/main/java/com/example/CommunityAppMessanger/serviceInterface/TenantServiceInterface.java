@@ -18,4 +18,6 @@ public interface TenantServiceInterface {
     ResponseEntity<HttpStatus> deleteById(Long id);
 
     ResponseEntity<Tenants> updateTenant(Long id, Tenants tenant);
+
+    ResponseEntity<List<Tenants>> findByUserId(Long userId);
 }

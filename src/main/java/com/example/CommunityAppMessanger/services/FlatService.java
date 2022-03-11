@@ -26,7 +26,7 @@ public class FlatService implements FlatServiceInterface {
     @Override
     public ResponseEntity<Flats> saveFlat(Flats flats) {
         try {
-            Flats newFlat=flatRepository.save(new Flats(flats.getFlatNumber(),flats.getRooms(),flats.getSquare()));
+            Flats newFlat=flatRepository.save(flats);
             return new ResponseEntity<>(newFlat, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -75,12 +75,15 @@ public class FlatService implements FlatServiceInterface {
 
         if (flatDB.isPresent()) {
             Flats _flat = flatDB.get();
-            _flat.setSquare(flat.getSquare());
-            _flat.setRooms(flat.getRooms());
+            _flat.setFlatNumber(flat.getFlatNumber());
 
             return new ResponseEntity<>(flatRepository.save(_flat), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+    }
+
+    public Flats getFlat(Long flatNumber){
+        return flatRepository.findByFlatNumber(flatNumber);
     }
 }

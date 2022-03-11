@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import java.util.List;
 
 public interface CityServiceInterface {
-    ResponseEntity<Cities> saveCity(Cities city);
+    ResponseEntity<Cities> saveCity(Cities city,String address);
 
     ResponseEntity<List<Cities>> findAll();
 

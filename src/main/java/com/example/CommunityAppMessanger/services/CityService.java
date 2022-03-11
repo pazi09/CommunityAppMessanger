@@ -3,6 +3,7 @@ package com.example.CommunityAppMessanger.services;
 
 import com.example.CommunityAppMessanger.models.Cities;
 import com.example.CommunityAppMessanger.models.Flats;
+import com.example.CommunityAppMessanger.models.Houses;
 import com.example.CommunityAppMessanger.repository.CityRepository;
 import com.example.CommunityAppMessanger.serviceInterface.CityServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,24 +11,27 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class CityService implements CityServiceInterface {
 
     private final CityRepository cityRepository;
+    private final HouseService houseService;
 
     @Autowired
-    public  CityService(CityRepository cityRepository){
-        this.cityRepository=cityRepository;
+    public  CityService(CityRepository cityRepository,HouseService houseService){
+        this.cityRepository=cityRepository;this.houseService=houseService;
     }
 
     @Override
-    public ResponseEntity<Cities> saveCity(Cities city) {
+    public ResponseEntity<Cities> saveCity(Cities city, String address) {
         try {
-            Cities newCity=cityRepository.save(new Cities(city.getCity()));
+            Cities newCity=cityRepository.save(new Cities(city.getCity(),new HashSet<>()));
+            Set<Houses> houses= newCity.getHouses();
+            houses.add(houseService.getHouse(address));
+            newCity.setHouses(houses);
+            cityRepository.save(newCity);
             return new ResponseEntity<>(newCity, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);

@@ -20,16 +20,16 @@ public class Cities {
     @Column(name = "city")
     private String city;
 
-    @ManyToMany
-    @JoinTable(	name = "cities_houses",
-            joinColumns = @JoinColumn(name = "city_id"),
-            inverseJoinColumns = @JoinColumn(name = "house_id"))
-    private Set<Houses> houses=new HashSet<>();
+    @OneToMany
+    @Column(name="houses" , unique = false, nullable = true)
+    Set<Houses> houses;
 
     public Cities() {
     }
 
-    public Cities(String city){
+
+    public Cities(String city,HashSet<Houses> houses){
         this.city=city;
+        this.houses=houses;
     }
 }

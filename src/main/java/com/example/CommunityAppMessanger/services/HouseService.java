@@ -2,6 +2,7 @@ package com.example.CommunityAppMessanger.services;
 
 import com.example.CommunityAppMessanger.models.Flats;
 import com.example.CommunityAppMessanger.models.Houses;
+import com.example.CommunityAppMessanger.models.Tenants;
 import com.example.CommunityAppMessanger.repository.HouseRepository;
 import com.example.CommunityAppMessanger.serviceInterface.HouseServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,24 +10,28 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class HouseService implements HouseServiceInterface {
 
     private final HouseRepository houseRepository;
+    private final FlatService flatService;
 
     @Autowired
-    public HouseService(HouseRepository houseRepository){
+    public HouseService(HouseRepository houseRepository,FlatService flatService){
         this.houseRepository=houseRepository;
+        this.flatService=flatService;
     }
 
     @Override
     public ResponseEntity<Houses> saveHouse(Houses houses) {
         try {
-            Houses newHouse=houseRepository.save(new Houses(houses.getAddress()));
+            Houses houseByAddress = houseRepository.findByAddress(houses.getAddress());
+            if(houseByAddress!= null){
+                return new ResponseEntity<>(houseByAddress, HttpStatus.NOT_MODIFIED);
+            }
+            Houses newHouse= houseRepository.save(houses);
             return new ResponseEntity<>(newHouse, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -81,5 +86,10 @@ public class HouseService implements HouseServiceInterface {
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+    }
+
+
+    public Houses getHouse(String address){
+        return houseRepository.findByAddress(address);
     }
 }

@@ -29,8 +29,7 @@ public class TenantService implements TenantServiceInterface {
     @Override
     public ResponseEntity<Tenants> saveTenant(Tenants tenant) {
         try {
-           Tenants newTenant= tenantRepository.
-                   save(new Tenants(tenant.getTenantName(),tenant.getTenantSecondName(),tenant.getTenantLastName(), tenant.getUser_id()));
+           Tenants newTenant= tenantRepository.save(tenant);
            return new ResponseEntity<>(newTenant, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -86,5 +85,10 @@ public class TenantService implements TenantServiceInterface {
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+    }
+
+    @Override
+    public ResponseEntity<List<Tenants>> findByUserId(Long userId){
+        return new ResponseEntity<>(tenantRepository.findTenantsByUserId(userId),HttpStatus.OK);
     }
 }

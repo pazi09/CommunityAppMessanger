@@ -2,9 +2,7 @@ package com.example.CommunityAppMessanger.controllers;
 
 
 import com.example.CommunityAppMessanger.models.Cities;
-import com.example.CommunityAppMessanger.models.Houses;
 import com.example.CommunityAppMessanger.serviceInterface.CityServiceInterface;
-import com.example.CommunityAppMessanger.serviceInterface.HouseServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,8 +33,8 @@ public class CityController {
     }
 
     @PostMapping("")
-    public ResponseEntity<Cities> addCity(@RequestBody Cities cities){
-        return cityService.saveCity(cities);
+    public ResponseEntity<Cities> addCity(@RequestBody Cities cities,@RequestBody String address){
+        return cityService.saveCity(cities, address);
     }
 
     @PatchMapping("/update/{id}")

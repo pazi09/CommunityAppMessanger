@@ -16,23 +16,14 @@ public class Flats {
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         private Long id;
 
-        @Column(name = "house_id", insertable=false, updatable = false)
-        private Long house_id;
-
         @Column
         private Long flatNumber;
-
-        @Column
-        private Float square;
-
-        @Column
-        private Long rooms;
 
         @ManyToMany(fetch = FetchType.EAGER)
         @JoinTable(	name = "flats_tenants",
                 joinColumns = @JoinColumn(name = "flat_id"),
                 inverseJoinColumns = @JoinColumn(name = "tenant_id"))
-        private Set<Tenants> flat=new HashSet<>();
+        private Set<Tenants> tenants=new HashSet<>();
 
         @ManyToOne(fetch = FetchType.EAGER, optional = false,cascade = CascadeType.ALL)
         @JoinColumn(name = "house_id")
@@ -41,9 +32,8 @@ public class Flats {
         public Flats(){
         }
 
-        public Flats( Long flatNumber, Long rooms, Float square) {
+        public Flats( Long flatNumber) {
                 this.flatNumber=flatNumber;
-                this.square=square;
-                this.rooms=rooms;
+
         }
 }

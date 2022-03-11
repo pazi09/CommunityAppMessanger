@@ -27,17 +27,20 @@ public class Tenants {
     @Column
     private String tenantLastName;
 
-    @Column(name="user_id",unique = true)
-    private Long user_id;
+
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private User user;
 
     public Tenants() {
     }
 
-    public Tenants(String tenantName, String tenantSecondName, String tenantLastName,Long user_id) {
+    public Tenants(String tenantName, String tenantSecondName, String tenantLastName) {
         this.tenantName=tenantName;
         this.tenantSecondName=tenantSecondName;
         this.tenantLastName=tenantLastName;
-        this.user_id=user_id;
+
     }
 
 
