@@ -1,23 +1,25 @@
 package com.example.CommunityAppMessanger.serviceInterface;
 
-import com.example.CommunityAppMessanger.models.Tenants;
+import com.example.CommunityAppMessanger.models.Tenant;
 
-import com.example.CommunityAppMessanger.models.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 
 import java.util.List;
 
 public interface TenantServiceInterface {
-    ResponseEntity<Tenants> saveTenant(Tenants tenant);
+    ResponseEntity<Tenant> saveTenant(Tenant tenant);
 
-    ResponseEntity<List<Tenants>> findAll();
+    ResponseEntity<List<Tenant>> findAll();
 
-    ResponseEntity<Tenants> findById (Long Id);
+    ResponseEntity<Tenant> findById (Long Id);
 
     ResponseEntity<HttpStatus> deleteById(Long id);
 
-    ResponseEntity<Tenants> updateTenant(Long id, Tenants tenant);
+    ResponseEntity<Tenant> updateTenant(Long id, Tenant tenant);
 
-    ResponseEntity<List<Tenants>> findByUserId(Long userId);
+    ResponseEntity<List<Tenant>> findByUserId(Long userId);
+
+    ResponseEntity<Tenant> getTenantByUser(Authentication authentication);
 }

@@ -12,7 +12,7 @@ import java.util.Set;
 @Data
 @Entity
 @Table( name = "tenant")
-public class Tenants {
+public class Tenant {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="id")
@@ -33,10 +33,10 @@ public class Tenants {
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
-    public Tenants() {
+    public Tenant() {
     }
 
-    public Tenants(String tenantName, String tenantSecondName, String tenantLastName) {
+    public Tenant(String tenantName, String tenantSecondName, String tenantLastName) {
         this.tenantName=tenantName;
         this.tenantSecondName=tenantSecondName;
         this.tenantLastName=tenantLastName;
