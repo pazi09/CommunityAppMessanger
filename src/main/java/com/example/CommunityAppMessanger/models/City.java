@@ -12,7 +12,7 @@ import java.util.Set;
         uniqueConstraints = {
         @UniqueConstraint(columnNames = "city")
 })
-public class Cities {
+public class City {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -20,16 +20,11 @@ public class Cities {
     @Column(name = "city")
     private String city;
 
-    @OneToMany
-    @Column(name="houses" , unique = false, nullable = true)
-    Set<Houses> houses;
-
-    public Cities() {
+    public City() {
     }
 
 
-    public Cities(String city,HashSet<Houses> houses){
+    public City(String city){
         this.city=city;
-        this.houses=houses;
     }
 }

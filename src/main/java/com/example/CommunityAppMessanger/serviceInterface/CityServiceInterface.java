@@ -1,20 +1,22 @@
 package com.example.CommunityAppMessanger.serviceInterface;
 
-import com.example.CommunityAppMessanger.models.Cities;
-import com.example.CommunityAppMessanger.models.Houses;
+import com.example.CommunityAppMessanger.models.City;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 
 import java.util.List;
 
 public interface CityServiceInterface {
-    ResponseEntity<Cities> saveCity(Cities city,String address);
+    ResponseEntity<City> saveCity(City city);
 
-    ResponseEntity<List<Cities>> findAll();
+    ResponseEntity<List<City>> findAll();
 
-    ResponseEntity<Cities> findById (Long Id);
+    ResponseEntity<City> findById (Long Id);
 
     ResponseEntity<HttpStatus> deleteById(Long id);
 
-    ResponseEntity<Cities> updateCity(Long id, Cities city);
+    ResponseEntity<City> updateCity(Long id, City city);
+
+    ResponseEntity<City> getCityByUser(Authentication authentication);
 }
