@@ -1,12 +1,15 @@
 package com.example.CommunityAppMessanger.services;
 
-import com.example.CommunityAppMessanger.models.Flats;
-import com.example.CommunityAppMessanger.models.Tenants;
+import com.example.CommunityAppMessanger.models.City;
+import com.example.CommunityAppMessanger.models.Flat;
 import com.example.CommunityAppMessanger.repository.FlatRepository;
+import com.example.CommunityAppMessanger.security.services.UserDetailsImpl;
 import com.example.CommunityAppMessanger.serviceInterface.FlatServiceInterface;
+import com.example.CommunityAppMessanger.utils.HouseHolder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -24,9 +27,15 @@ public class FlatService implements FlatServiceInterface {
     }
 
     @Override
-    public ResponseEntity<Flats> saveFlat(Flats flats) {
+    public ResponseEntity<Flat> saveFlat(Flat flat) {
         try {
-            Flats newFlat=flatRepository.save(flats);
+
+            List<Flat> flats = new ArrayList<Flat>();
+            flatRepository.findAll().forEach(flats::add);
+            if (flats.isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+            Flat newFlat=flatRepository.save(flat);
             return new ResponseEntity<>(newFlat, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -34,9 +43,9 @@ public class FlatService implements FlatServiceInterface {
     }
 
     @Override
-    public ResponseEntity<List<Flats>> findAll() {
+    public ResponseEntity<List<Flat>> findAll() {
         try {
-            List<Flats> flats = new ArrayList<Flats>();
+            List<Flat> flats = new ArrayList<Flat>();
             flatRepository.findAll().forEach(flats::add);
             if (flats.isEmpty()) {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -49,8 +58,8 @@ public class FlatService implements FlatServiceInterface {
     }
 
     @Override
-    public ResponseEntity<Flats> findById (Long Id) {
-        Optional<Flats> flats = flatRepository.findById(Id);
+    public ResponseEntity<Flat> findById (Long Id) {
+        Optional<Flat> flats = flatRepository.findById(Id);
 
         if (flats.isPresent()) {
             return new ResponseEntity<>(flats.get(), HttpStatus.OK);
@@ -70,11 +79,11 @@ public class FlatService implements FlatServiceInterface {
     }
 
     @Override
-    public ResponseEntity<Flats> updateFlat(Long id, Flats flat) {
-        Optional<Flats> flatDB = flatRepository.findById(id);
+    public ResponseEntity<Flat> updateFlat(Long id, Flat flat) {
+        Optional<Flat> flatDB = flatRepository.findById(id);
 
         if (flatDB.isPresent()) {
-            Flats _flat = flatDB.get();
+            Flat _flat = flatDB.get();
             _flat.setFlatNumber(flat.getFlatNumber());
 
             return new ResponseEntity<>(flatRepository.save(_flat), HttpStatus.OK);
@@ -83,7 +92,17 @@ public class FlatService implements FlatServiceInterface {
         }
     }
 
-    public Flats getFlat(Long flatNumber){
+    @Override
+    public ResponseEntity<Flat> getFlatByHouse(Authentication authentication){
+        Long userId=((UserDetailsImpl)authentication.getPrincipal()).getId();
+        Long houseByUserId = HouseHolder.getHouseByUserId(userId);
+        Flat flatByHouseId = flatRepository.findByHouseId(houseByUserId);
+        return new ResponseEntity<>(flatByHouseId,HttpStatus.OK);
+    }
+
+     Flat getFlat(Long flatNumber){
         return flatRepository.findByFlatNumber(flatNumber);
     }
+
+
 }
