@@ -1,21 +1,24 @@
 package com.example.CommunityAppMessanger.serviceInterface;
 
-import com.example.CommunityAppMessanger.models.Houses;
+import com.example.CommunityAppMessanger.models.House;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 
 import java.util.List;
 
 public interface HouseServiceInterface {
-    ResponseEntity<Houses> saveHouse(Houses houses);
+    ResponseEntity<House> saveHouse(House house);
 
-    ResponseEntity<List<Houses>> findAll();
+    ResponseEntity<List<House>> findAll();
 
-    ResponseEntity<Houses> findById (Long Id);
+    ResponseEntity<House> findById (Long Id);
 
     ResponseEntity<HttpStatus> deleteById(Long id);
 
-    ResponseEntity<Houses> updateHouse(Long id, Houses houses);
+    ResponseEntity<House> updateHouse(Long id, House house);
 
-    Houses getHouse(String address);
+    House getHouse(String address);
+
+    ResponseEntity<House> getHouseByUser(Authentication authentication);
 }

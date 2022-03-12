@@ -5,14 +5,11 @@ import lombok.Data;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 @Data
 @Entity
 @Table( name = "house")
-public class Houses {
+public class House {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -21,10 +18,14 @@ public class Houses {
     @Size(max = 20)
     private String address;
 
-    public Houses() {
+    @ManyToOne(fetch = FetchType.EAGER, optional = false,cascade = CascadeType.ALL)
+    @JoinColumn(name = "city_id")
+    private City city;
+
+    public House() {
     }
 
-    public Houses(String address) {
+    public House(String address) {
         this.address=address;
     }
 }
