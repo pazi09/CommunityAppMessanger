@@ -1,6 +1,6 @@
 package com.example.CommunityAppMessanger.config;
 
-import com.example.CommunityAppMessanger.services.ChatWebSocketHandler;
+import com.example.CommunityAppMessanger.handler.ChatWebSocketHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.socket.WebSocketHandler;
